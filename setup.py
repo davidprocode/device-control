@@ -6,13 +6,17 @@ data_files = [("Microsoft.VC90.CRT", glob(r'C:\Program Files\Microsoft Visual St
 
 setup(
     data_files=data_files,
-    console=['host.py'],
-    console=['client.py'],
+    console=[
+        {'script': 'host.py', 'dest_base': 'host'},
+        {'script': 'client.py', 'dest_base': 'client'}
+    ],
     options={
         'py2exe': {
-            'bundle_files': 1,  # Bundle everything into a single file
-            'compressed': True,  # Compress the library archive
+            'bundle_files': 1,  # Agrupa tudo em um único arquivo
+            'compressed': True,  # Comprime o arquivo de biblioteca
+            'dist_dir': 'dist',  # Define o diretório de saída
         }
     },
-    zipfile=None  # Do not create a separate zip file
+    zipfile=None,  # Não cria um arquivo zip separado
+    py_modules=['host', 'client']  # Define explicitamente os módulos
 )
