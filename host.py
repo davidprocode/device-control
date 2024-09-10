@@ -22,11 +22,22 @@ def handle_client(conn, addr):
 
         print(f"Comando recebido: {data}")
 
-        if data.strip().lower() == 'desligar':
+        if data.strip().lower() == 'shutdown':
             conn.send("Comando recebido".encode('utf-8'))
             print("Desligando o PC...")
             os.system('shutdown /p')  # Comando para Windows
-            # os.system('sudo shutdown -h now')  # Comando para Linux
+            break
+
+        elif data.strip().lower() == 'restart':
+            conn.send("Comando recebido".encode('utf-8'))
+            print("Reiniciando o PC...")
+            os.system('shutdown /r')  # Comando para Windows
+            break
+
+        elif data.strip().lower() == 'other':
+            conn.send("Comando recebido".encode('utf-8'))
+            print("Testando...")
+            # os.system('shutdown /r')  # Comando para Windows
             break
 
         # Envia resposta ao cliente

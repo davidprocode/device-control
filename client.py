@@ -69,15 +69,23 @@ def send_command(command, server_addresses):
 
 if __name__ == "__main__":
     subnet = '192.168.0.0/24'
+
+    choice_01 = input("Deseja escanear a rede novamente? (s/n): ").strip().lower()
     
-    choice = input("Deseja escanear a rede novamente? (s/n): ").strip().lower()
-    
-    if choice == 's':
+    if choice_01 == 's':
         ip_addresses = scan_subnet(subnet)
         save_addresses_to_file(ip_addresses)
     else:
         ip_addresses = load_addresses_from_file()
     
+    print("Comandos disponiveis: 1 - Desligar 2 - Reiniciar 3 - Outro(em breve)")
+
+    choice_02 = input("Selecione o comando: ").strip().lower()
+    
+    def set_command(num):
+        switch={1:'shutdown', 2:'restart', 3:'other'}
+        return switch.get(num)
+        
     server_addresses = [(ip, 5555) for ip in ip_addresses]
     
-    send_command("desligar", server_addresses)
+    send_command(set_command(choice_02), server_addresses)
